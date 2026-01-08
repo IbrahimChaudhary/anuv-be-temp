@@ -76,9 +76,12 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
+    const ip_address = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
+    const ipString = Array.isArray(ip_address) ? ip_address[0] : ip_address;
+
     const [result] = await db.query<ResultSetHeader>(
-      'INSERT INTO users (email) VALUES (?)',
-      [email]
+      'INSERT INTO users (email, ip_address) VALUES (?, ?)',
+      [email, ipString]
     );
 
     const [rows] = await db.query<User[]>(

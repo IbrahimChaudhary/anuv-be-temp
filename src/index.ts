@@ -5,6 +5,10 @@ import cookieParser from "cookie-parser";
 import { testConnection } from "./config/db";
 import userRoutes from "./routes/userRoutes";
 import adminRoutes from "./routes/adminRoutes";
+import quizRoutes from "./routes/quizRoutes";
+import playlistRoutes from "./routes/playlistRoutes";
+import uploadRoutes from "./routes/uploadRoutes";
+import path from "path";
 
 dotenv.config();
 
@@ -39,15 +43,22 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static files for playlist images
+app.use('/images', express.static(path.join(__dirname, '../public/images')));
+
 // Routes
 app.use("/api/v1/users", userRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/quiz', quizRoutes);
+app.use('/api/v1/playlists', playlistRoutes);
+app.use('/api/v1/upload', uploadRoutes);
 
 app.get("/health", (req: Request, res: Response) => {
   res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
 app.listen(PORT, async () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
   try {
     await testConnection();
   } catch (error) {
