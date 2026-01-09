@@ -22,4 +22,15 @@ const pool = mysql.createPool({
   connectionLimit: 10,
 });
 
+// Test the connection
+export const testConnection = async (): Promise<void> => {
+  try {
+    const connection = await pool.getConnection();
+    connection.release();
+  } catch (error) {
+    console.error('✗ MySQL Database connection failed:', error);
+    throw error;
+  }
+};
+
 export default pool;
