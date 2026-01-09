@@ -8,6 +8,15 @@ const {
   DB_PORT
 } = process.env;
 
+console.log('DB_HOST:', process.env.DB_HOST);
+console.log('DB_USER:', process.env.DB_USER);
+console.log('DB_NAME:', process.env.DB_NAME);
+console.log('DB_PORT:', process.env.DB_PORT);
+console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
+
+// throw new Error('STOP');
+
+
 if (!DB_HOST || !DB_USER || !DB_NAME) {
   throw new Error('❌ Missing database environment variables');
 }
