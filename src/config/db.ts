@@ -5,9 +5,11 @@ const {
   DB_USER,
   DB_PASSWORD,
   DB_NAME,
-  DB_PORT
+  DB_PORT,
+  CLOUDINARY_CLOUD_NAME
 } = process.env;
 
+console.log("CLOUDINARY_CLOUD_NAME", process.env.CLOUDINARY_CLOUD_NAME);
 console.log('DB_HOST:', process.env.DB_HOST);
 console.log('DB_USER:', process.env.DB_USER);
 console.log('DB_NAME:', process.env.DB_NAME);
